@@ -24,12 +24,12 @@ class Right extends React.Component {
 
         const [firstresponse, secondresponse, thirdresponse, fourthResponse, fifthResponse, sixtResponse] = await Promise.all(
             [
-                Axios.get(`https://newsapi.org/v2/everything?q=turkish||turkey&pageSize=25&apiKey=032a0e3b07624eec81a5556013d9b392`),
-                Axios.get('https://api.exchangeratesapi.io/latest?base=USD'),
-                Axios.get('https://api.exchangeratesapi.io/latest?base=EUR'),
-                Axios.get('https://api.exchangeratesapi.io/latest?base=AUD'),
-                Axios.get('https://api.exchangeratesapi.io/latest?base=GBP'),
-                Axios.get('https://api.exchangeratesapi.io/latest?base=NZD')
+                Axios.get(`https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=turkish||turkey&pageSize=25&apiKey=032a0e3b07624eec81a5556013d9b392`),
+                Axios.get('https://cors-anywhere.herokuapp.com/https://api.exchangeratesapi.io/latest?base=USD'),
+                Axios.get('https://cors-anywhere.herokuapp.com/https://api.exchangeratesapi.io/latest?base=EUR'),
+                Axios.get('https://cors-anywhere.herokuapp.com/https://api.exchangeratesapi.io/latest?base=AUD'),
+                Axios.get('https://cors-anywhere.herokuapp.com/https://api.exchangeratesapi.io/latest?base=GBP'),
+                Axios.get('https://cors-anywhere.herokuapp.com/https://api.exchangeratesapi.io/latest?base=NZD')
 
             ])
 
@@ -54,7 +54,7 @@ class Right extends React.Component {
     render() {
 
         return (
-            <div className='container ' >
+            <div className='container  ' >
 
                 {/* <ListGroupItem style={{ border: 0 }} tag="a" href="/news">    NEWS</ListGroupItem> */}
                 <div className='row border justify-content-center'>

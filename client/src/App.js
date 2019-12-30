@@ -10,6 +10,33 @@ import Signup from './components/Signup'
 import Footer from './components/Footer'
 import Login from './components/Login'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import jwt_decode from 'jwt-decode'
+import setAuthToken from './setAuthToken'
+import { SET_CURRENT_USER } from './actions/types'
+import { logoutUser } from './actions/formActions'
+import PrivateRoute from './components/PrivateRoute'
+import Dashboard from './components/Dashboard'
+import Housing from './components/Housing'
+import ForSale from './components/ForSale'
+
+if (localStorage.jwtToken) {
+  setAuthToken(localStorage.jwtToken);
+
+  const decoded = jwt_decode(localStorage.jwtToken)
+
+  store.dispatch({
+    type: SET_CURRENT_USER,
+    payload: decoded
+  })
+
+  const currentTime = Date.now() / 1000;
+
+  if (decoded.exp < currentTime) {
+    store.dispatch(logoutUser());
+    window.location.href = '/login'
+  }
+}
+
 
 class App extends React.Component {
   render() {
@@ -27,6 +54,9 @@ class App extends React.Component {
               <Route exact path='/news' component={News} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/register' component={Signup} />
+              <Route exact path='/housing' component={Housing} />
+              <Route exact path='/forsale' component={ForSale} />
+              <PrivateRoute exact path='/dashboard' component={Dashboard} />
             </Switch>
           </BrowserRouter>
 

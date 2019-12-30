@@ -1,11 +1,11 @@
 import React from 'react'
 // import { Link } from 'react-router-dom'
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroupItem } from 'reactstrap';
 
 
 const Left = () => {
     return (
-        <div className='container border p-0 ' >
+        <div className='container border mt-1' >
             <span style={{ fontSize: '25px' }}>Lodos AU</span>
 
             <ListGroupItem style={{ border: 0 }} tag="a" href="#">create posting</ListGroupItem>

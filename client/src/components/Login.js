@@ -34,7 +34,7 @@ class Login extends React.Component {
     componentDidUpdate(prevProps) {
 
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push('/dashboard')
+            this.props.history.push('/')
         }
 
         if (this.props.errors !== prevProps.errors) {

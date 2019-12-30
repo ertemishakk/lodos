@@ -11,6 +11,7 @@ class Signup extends React.Component {
         email: '',
         password: '',
         password2: '',
+        city:'',
         errors: {}
     }
 
@@ -27,7 +28,8 @@ class Signup extends React.Component {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
-            password2: this.state.password2
+            password2: this.state.password2,
+            city: this.state.city
         }
 
         this.props.registerUser(newUser, this.props.history)
@@ -80,6 +82,15 @@ class Signup extends React.Component {
                                     </InputGroupAddon>
                                     <Input placeholder="email" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.email })} value={this.state.email} name='email'/>
                                     <div className='invalid-feedback'>{errors.email}</div>
+                                </InputGroup>
+
+                               
+                                <InputGroup className='my-2'>
+                                    <InputGroupAddon addonType="prepend">
+                                        <InputGroupText>@</InputGroupText>
+                                    </InputGroupAddon>
+                                    <Input placeholder="city" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.city })} value={this.state.city} name='city'/>
+                                    <div className='invalid-feedback'>{errors.city}</div>
                                 </InputGroup>
 
                                 <InputGroup className='my-2'>

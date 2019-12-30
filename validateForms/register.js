@@ -6,6 +6,7 @@ module.exports = function validateRegisterInput(data) {
 
     data.name = !isEmpty(data.name) ? data.name : '';
     data.email = !isEmpty(data.email) ? data.email : '';
+    data.city = !isEmpty(data.city) ? data.city : '';
     data.password = !isEmpty(data.password) ? data.password : '';
     data.password2 = !isEmpty(data.password2) ? data.password2 : '';
 
@@ -26,6 +27,13 @@ module.exports = function validateRegisterInput(data) {
     if (!Validator.isEmail(data.email)) {
         errors.email = 'Email is invalid'
     }
+
+    if (Validator.isEmpty(data.city)) {
+        errors.city = 'City field is required'
+    }
+
+
+
     if (Validator.isEmpty(data.password)) {
         errors.password = 'Password field is required'
     }

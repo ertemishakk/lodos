@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Axios from 'axios'
 import {
     Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
+    CardTitle, Button
 } from 'reactstrap';
 
 class News extends Component {

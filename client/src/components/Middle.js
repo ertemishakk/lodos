@@ -5,8 +5,8 @@ const Middle = () => {
     return (
         <div>
             <ListGroup>
-                <ListGroupItem tag="a" href="#">Housing</ListGroupItem>
-                <ListGroupItem tag="a" href="#">For Sale</ListGroupItem>
+                <ListGroupItem tag="a" href="/housing">Housing</ListGroupItem>
+                <ListGroupItem tag="a" href="/forsale">For Sale</ListGroupItem>
                 <ListGroupItem tag="a" href="#">Jobs</ListGroupItem>
                 <ListGroupItem tag="a" href="#">Events</ListGroupItem>
                 <ListGroupItem tag="a" href="#">Services</ListGroupItem>

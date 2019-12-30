@@ -11,9 +11,9 @@ const MainPage = () => {
             <Container>
                 <Row>
                     <Col></Col>
-                    <Col xs='3' className='p-0 m-0'><Left /></Col>
-                    <Col xs='3' className='p-1 m-0'><Middle /></Col>
-                    <Col xs='4' className='p-1 m-0'><Right /></Col>
+                    <Col xs='3' className='p-0 my-0'><Left /></Col>
+                    <Col xs='3' className='p-1 my-0'><Middle /></Col>
+                    <Col xs='4' className='p-1 my-0'><Right /></Col>
                 </Row>
             </Container>
         </div>
