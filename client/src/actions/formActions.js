@@ -47,5 +47,5 @@ export const logoutUser = () => dispatch => {
         type: SET_CURRENT_USER,
         payload: {}
     });
-    // this.history.push('/dashboard')
+    window.location.href = '/login'
 }

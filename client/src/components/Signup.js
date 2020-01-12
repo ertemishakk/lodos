@@ -1,8 +1,12 @@
 import React from 'react'
-import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import {
+    InputGroup,
+    Label, InputGroupAddon, InputGroupText, Input
+} from 'reactstrap';
 import { connect } from 'react-redux'
 import { registerUser } from '../actions/formActions'
 import classnames from 'classnames'
+import { Link } from 'react-router-dom'
 
 class Signup extends React.Component {
 
@@ -11,7 +15,7 @@ class Signup extends React.Component {
         email: '',
         password: '',
         password2: '',
-        city:'',
+        city: '',
         errors: {}
     }
 
@@ -71,7 +75,7 @@ class Signup extends React.Component {
                                     <InputGroupAddon addonType="prepend">
                                         <InputGroupText>@</InputGroupText>
                                     </InputGroupAddon>
-                                    <Input placeholder="name" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.name })} value={this.state.name} name='name'/>
+                                    <Input placeholder="name" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.name })} value={this.state.name} name='name' />
                                     <div className='invalid-feedback'>{errors.name}</div>
 
 
@@ -80,16 +84,16 @@ class Signup extends React.Component {
                                     <InputGroupAddon addonType="prepend">
                                         <InputGroupText>@</InputGroupText>
                                     </InputGroupAddon>
-                                    <Input placeholder="email" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.email })} value={this.state.email} name='email'/>
+                                    <Input placeholder="email" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.email })} value={this.state.email} name='email' />
                                     <div className='invalid-feedback'>{errors.email}</div>
                                 </InputGroup>
 
-                               
+
                                 <InputGroup className='my-2'>
                                     <InputGroupAddon addonType="prepend">
                                         <InputGroupText>@</InputGroupText>
                                     </InputGroupAddon>
-                                    <Input placeholder="city" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.city })} value={this.state.city} name='city'/>
+                                    <Input placeholder="city" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.city })} value={this.state.city} name='city' />
                                     <div className='invalid-feedback'>{errors.city}</div>
                                 </InputGroup>
 
@@ -97,19 +101,29 @@ class Signup extends React.Component {
                                     <InputGroupAddon addonType="prepend">
                                         <InputGroupText>@</InputGroupText>
                                     </InputGroupAddon>
-                                    <Input placeholder="password" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.password })}  value={this.state.password} name='password'/>
+                                    <Input placeholder="password" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.password })} value={this.state.password} name='password' />
                                     <div className='invalid-feedback'>{errors.password}</div>
                                 </InputGroup>
 
                                 <InputGroup className='my-2'>
                                     <InputGroupAddon addonType="prepend">
-                                        <InputGroupText>*</InputGroupText>
+                                        <InputGroupText>@</InputGroupText>
                                     </InputGroupAddon>
-                                    <Input placeholder="confirm password" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.password2 })} value={this.state.password2} name='password2'/>
+                                    <Input placeholder="confirm password" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.password2 })} value={this.state.password2} name='password2' />
                                     <div className='invalid-feedback'>{errors.password2}</div>
                                 </InputGroup>
+                                <small className='float-left pb-2'>Already a member? <Link to='/login'>Log in</Link></small>
 
-                                <input type='submit' className='ttn btn-info btn-block mt-4 p-2' />
+                                <InputGroup className='ml-4 ' >
+
+                                    <Input type="checkbox" className='form-check-input' id="invalidCheck" required />
+                                    <Label check className="form-check-label" for="invalidCheck">
+                                        Agree to terms and conditions
+                                        </Label>
+                                </InputGroup>
+
+                                <Input type='submit' value='Register' className='ttn btn-info btn-block mt-4 p-2' />
+
                             </form>
                         </div>
                     </div>

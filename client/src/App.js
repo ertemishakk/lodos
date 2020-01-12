@@ -18,6 +18,8 @@ import PrivateRoute from './components/PrivateRoute'
 import Dashboard from './components/Dashboard'
 import Housing from './components/Housing'
 import ForSale from './components/ForSale'
+import CreatePost from './components/CreatePost'
+import PageLink from './components/PageLink'
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -52,9 +54,15 @@ class App extends React.Component {
             <Switch>
               <Route exact path='/' component={MainPage} />
               <Route exact path='/news' component={News} />
-              <Route exact path='/login' component={Login} />
+              <Route exact path='/login' component={Login}>
+                {/* {localStorage.jwtToken ? <Redirect to='/dashboard' /> : <Login />} */}
+              </Route>
+
+              <PrivateRoute exact path='/createpost' component={CreatePost} />
               <Route exact path='/register' component={Signup} />
               <Route exact path='/housing' component={Housing} />
+              <Route exact path='/housing/:title' component={PageLink} />
+              <Route exact path='/forsale/:title' component={PageLink} />
               <Route exact path='/forsale' component={ForSale} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
             </Switch>

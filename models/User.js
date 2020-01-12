@@ -18,13 +18,15 @@ const UserSchema = new Schema({
     },
     city: {
         type: String,
-       required: true,
-       trim: true
+        required: true,
+        trim: true
     },
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+
+
 })
 
 module.exports = User = mongoose.model('users', UserSchema)

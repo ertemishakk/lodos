@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 
 const PostSchema = new Schema({
-
     user: {
         type: Schema.Types.ObjectId,
         ref: 'users'
@@ -24,7 +23,35 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
-
+    userid: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    phonenumber: {
+        type: String,
+        required: true
+    },
+    language: {
+        type: String,
+        required: true
+    },
+    postcode: {
+        type: String,
+        required: true
+    }
+    ,
+    category: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now

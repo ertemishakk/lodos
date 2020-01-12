@@ -8,7 +8,7 @@ const Left = () => {
         <div className='container border mt-1' >
             <span style={{ fontSize: '25px' }}>Lodos AU</span>
 
-            <ListGroupItem style={{ border: 0 }} tag="a" href="#">create posting</ListGroupItem>
+            <ListGroupItem style={{ border: 0 }} tag="a" href="/createpost">create a posting</ListGroupItem>
             <ListGroupItem style={{ border: 0 }} tag="a" href="/login">my account</ListGroupItem>
 
 

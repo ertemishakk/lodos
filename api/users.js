@@ -6,6 +6,8 @@ const validateRegisterInput = require('../validateForms/register')
 const validateLoginInput = require('../validateForms/login')
 const jwt = require('jsonwebtoken')
 const keys = require('../config/keys')
+const AllPosts = require('../models/AllPosts')
+
 
 
 router.post('/register', (req, res) => {
@@ -38,7 +40,11 @@ router.post('/register', (req, res) => {
                             .catch(err => console.log(err))
                     })
                 })
+                const allposts = new AllPosts({
+                    user: newUser._id
+                })
 
+                allposts.save()
 
             }
         })
@@ -63,6 +69,8 @@ router.post('/login', (req, res) => {
                 errors.email = 'User not found'
                 return res.status(400).json(errors)
             }
+
+
 
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
@@ -90,6 +98,13 @@ router.post('/login', (req, res) => {
                         return res.status(400).json(errors)
                     }
                 })
+
+
+            // Allposts.updateOne({}, { $push: { userid: user._id } }, (err) =>
+            //     res.json(post))
+
+
+
         })
 })
 

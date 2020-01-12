@@ -31,9 +31,6 @@ module.exports = function validateRegisterInput(data) {
     if (Validator.isEmpty(data.city)) {
         errors.city = 'City field is required'
     }
-
-
-
     if (Validator.isEmpty(data.password)) {
         errors.password = 'Password field is required'
     }
@@ -43,7 +40,6 @@ module.exports = function validateRegisterInput(data) {
     if (Validator.isEmpty(data.password2)) {
         errors.password2 = 'Confirm Password field is required'
     }
-
     if (!Validator.equals(data.password, data.password2)) {
         errors.password2 = 'Passwords do not match'
     }

@@ -1,42 +1,75 @@
-import { HOUSING_POSTS, FORSALE_POSTS, POST_ERROR, GET_HOUSING_POSTS, GET_FORSALE_POSTS } from '../actions/types'
+import {
+    HOUSING_POSTS, FORSALE_POSTS,
+    POST_ERROR, GET_HOUSING_POSTS, GET_FORSALE_POSTS
+    , GET_PROFILE_POSTS, GET_FORSALE_POSTS_BY_PRICE_ASC
+    , GET_FORSALE_POSTS_BY_PRICE_DESC, GET_SINGLE_FORSALE_POST,LOADING
+} from '../actions/types'
 // import isEmpty from '../is-empty'
 
 const initialState = {
     housingposts: [],
     forsaleposts: [],
+    singleforsalepost: {},
+    profileposts: {},
     post: {},
-    postError: {}
+    postError: {},
+    loading:false
+    
+
 }
 export default function (state = initialState, action) {
     switch (action.type) {
-        case HOUSING_POSTS:
+        case LOADING:
             return {
                 ...state,
+                loading: true,
+               
+            }
+        case HOUSING_POSTS:
+            return {
+               ...state,
                 post: action.payload,
-                housingposts: [action.payload, ...state.housingposts]
+               
             }
         case FORSALE_POSTS:
             return {
                 ...state,
+                loading:false,
                 post: action.payload,
-                forsaleposts: [action.payload, ...state.forsaleposts]
+               
             }
         case POST_ERROR:
             return {
-                ...state,
-                post: null,
+                loading:false,
                 postError: action.payload
             }
         case GET_HOUSING_POSTS:
             return {
-                ...state,
                 housingposts: action.payload
             }
         case GET_FORSALE_POSTS:
             return {
-                ...state,
+                loading:false,
                 forsaleposts: action.payload
             }
+        case GET_FORSALE_POSTS_BY_PRICE_ASC:
+            return {
+                forsaleposts: action.payload
+            }
+        case GET_FORSALE_POSTS_BY_PRICE_DESC:
+            return {
+                forsaleposts: action.payload
+            }
+        case GET_PROFILE_POSTS:
+            return {
+                profileposts: action.payload
+            }
+        case GET_SINGLE_FORSALE_POST:
+            return {
+                ...state,
+                singleforsalepost: action.payload
+            }
+       
         default: return state;
 
     }

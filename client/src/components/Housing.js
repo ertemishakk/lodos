@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { getHousingPosts } from '../actions/postActions'
 import { connect } from 'react-redux'
-import { Container, Card, CardTitle } from 'reactstrap'
+import { Container, Card } from 'reactstrap'
+import moment from 'moment'
+import { Link } from 'react-router-dom'
 
 
 class Housing extends Component {
@@ -30,8 +32,9 @@ class Housing extends Component {
                 <h2>Housing</h2>
                 {this.state.housingposts.map((post, index) => (
                     <Card key={index}>
-                        <CardTitle className='font-weight-bold pt-2 text-left pl-5' style={{ fontSize: '20px' }}>{post.title}</CardTitle>
-                        <CardTitle className=' pt-2 text-left pl-5' style={{ fontSize: '15px' }}>Posted by {post.name}</CardTitle>
+                        < Link to={{ pathname: `/housing/${post.title}` }}
+                            className='pt-2 text-left pl-5 font-weight-bold' style={{ fontSize: '16px' }}>{post.title} - ${post.price}</Link>
+                        <small className='text-left pl-5'>{moment(post.date).fromNow()} by {post.name} </small>
                     </Card>
                 ))}
             </Container>

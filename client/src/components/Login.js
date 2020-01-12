@@ -1,7 +1,7 @@
 import React from 'react'
 import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 import { connect } from 'react-redux'
-// import { registerUser } from '../actions/formActions'
+import { Link } from 'react-router-dom'
 import classnames from 'classnames'
 import { loginUser } from '../actions/formActions'
 
@@ -34,7 +34,8 @@ class Login extends React.Component {
     componentDidUpdate(prevProps) {
 
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push('/')
+            // this.props.history.push('/dashboard')
+            window.location.href = '/dashboard'
         }
 
         if (this.props.errors !== prevProps.errors) {
@@ -42,10 +43,18 @@ class Login extends React.Component {
                 errors: this.props.errors
             })
         }
-        //  console.log(this.state)
     }
+    componentDidMount() {
+        if (localStorage.jwtToken) {
+            window.location.href = '/dashboard'
+        }
+    }
+
+
     render() {
         const { errors } = this.state
+        console.log(this.props.auth)
+
         return (
             <div className='container'>
                 <div className='row'>
@@ -69,9 +78,9 @@ class Login extends React.Component {
                                 <div className='invalid-feedback'>{errors.password}</div>
                             </InputGroup>
 
+                            <small className='float-left pb-2'>Not a member? <Link to='/register'>Sign Up</Link></small>
 
-
-                            <input type='submit' className='ttn btn-info btn-block mt-4 p-2' />
+                            <input type='submit' className='btn btn-info btn-block mt-4 p-2' />
                         </form>
                     </div>
                 </div>
