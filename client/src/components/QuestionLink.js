@@ -67,7 +67,7 @@ class QuestionLink extends Component {
     componentDidMount() {
         this.props.stopComponentReload()
         this.props.getSpecificQuestion(this.props.match.params.questionid)
-        let socket = io('http://localhost:5000')
+        let socket = io('https://frozen-garden-29598.herokuapp.com')
         this.setState({
             socket
         })

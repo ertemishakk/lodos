@@ -45,7 +45,7 @@ export const clearYellowPages = () => dispatch => {
 
 export const updatePost = (postData) => dispatch => {
     dispatch(loading())
-    axios.post('http://localhost:5000/api/posts/updatepost', postData)
+    axios.post('/api/posts/updatepost', postData)
         .then(res => {
             dispatch({
                 type: UPDATE_POST,
@@ -59,7 +59,7 @@ export const updatePost = (postData) => dispatch => {
 }
 
 export const createYellowPagesPost = (category, postData) => dispatch => {
-    axios.post(`http://localhost:5000/api/posts/${category}`, postData)
+    axios.post(`/api/posts/${category}`, postData)
         .then(res => {
             dispatch({
                 type: YELLOWPAGES_POST,
@@ -118,7 +118,7 @@ export const getYellowPages = (category, filter, page) => dispatch => {
 
 
     dispatch(loading())
-    axios.get(`http://localhost:5000/api/posts/${category}`, {
+    axios.get(`/api/posts/${category}`, {
         params
     })
         .then(res => {
@@ -163,7 +163,7 @@ export const getYellowPages = (category, filter, page) => dispatch => {
 
 export const getProfilePosts = (userid) => dispatch => {
     dispatch(loading())
-    axios.get(`http://localhost:5000/api/posts/profileposts/${userid}`)
+    axios.get(`/api/posts/profileposts/${userid}`)
         .then(res => {
             dispatch({
                 type: GET_PROFILE_POSTS,
@@ -211,7 +211,7 @@ export const getStates = (category) => dispatch => {
         categorystate = 'servicesstates'
     }
 
-    axios.get(`http://localhost:5000/api/posts/${categorystate}`)
+    axios.get(`/api/posts/${categorystate}`)
         .then(res => {
             dispatch({
                 type: GET_STATES,
@@ -259,7 +259,7 @@ export const getTowns = (category, stateinfo, stateid) => dispatch => {
     if (category === 'services') {
         categorytown = 'servicestowns'
     }
-    axios.get(`http://localhost:5000/api/posts/${categorytown}/${stateinfo}`)
+    axios.get(`/api/posts/${categorytown}/${stateinfo}`)
         .then(res => {
             dispatch({
                 type: GET_TOWNS,
@@ -280,7 +280,7 @@ export const getTowns = (category, stateinfo, stateid) => dispatch => {
 export const deletePhotos = (data) => dispatch => {
 
 
-    axios.delete('http://localhost:5000/api/posts/deletephotos', {
+    axios.delete('/api/posts/deletephotos', {
         params: {
             link: data.link,
             postid: data.postid,
@@ -302,7 +302,7 @@ export const deletePhotos = (data) => dispatch => {
 
 
 export const deletePost = (postinfo) => dispatch => {
-    axios.delete('http://localhost:5000/api/posts/deletepost', {
+    axios.delete('/api/posts/deletepost', {
         params: {
             category: postinfo.category,
             postid: postinfo.postid,
@@ -328,7 +328,7 @@ export const deletePost = (postinfo) => dispatch => {
 
 export const getSpecificPost = (category, postid) => dispatch => {
     dispatch(loading())
-    axios.get(`http://localhost:5000/api/posts/${category}/${postid}`)
+    axios.get(`/api/posts/${category}/${postid}`)
         .then(res => {
             console.log(res)
 

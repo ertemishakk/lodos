@@ -23,7 +23,7 @@ export const clearSpecificQuestion = () => dispatch => {
 
 
 export const sendDeleteQuestion = (questionid) => dispatch => {
-    axios.delete(`http://localhost:5000/api/questions/deletequestion/${questionid}`)
+    axios.delete(`/api/questions/deletequestion/${questionid}`)
         .then(() => {
             dispatch({
                 type: DELETE_QUESTION
@@ -37,7 +37,7 @@ export const sendDeleteQuestion = (questionid) => dispatch => {
 }
 export const getSpecificQuestion = (questionid) => dispatch => {
     dispatch(questionsLoading())
-    axios.get(`http://localhost:5000/api/questions/getSpecificQuestion/${questionid}`)
+    axios.get(`/api/questions/getSpecificQuestion/${questionid}`)
         .then(res => {
             dispatch({
                 type: GET_SPECIFIC_QUESTION,
@@ -73,7 +73,7 @@ export const updatePosition = (page) => dispatch => {
 
 export const getProfileQuestions = (userid) => dispatch => {
     dispatch(questionsLoading())
-    axios.get(`http://localhost:5000/api/questions/getProfileQuestions/${userid}`)
+    axios.get(`/api/questions/getProfileQuestions/${userid}`)
         .then(res => {
             dispatch({
                 type: GET_PROFILE_QUESTIONS,
@@ -88,7 +88,7 @@ export const getProfileQuestions = (userid) => dispatch => {
 
 
 export const popularQuestions = (questionid) => dispatch => {
-    axios.get(`http://localhost:5000/api/questions/getpopularquestions/${questionid}`)
+    axios.get(`/api/questions/getpopularquestions/${questionid}`)
         .then(res => {
             dispatch({
                 type: GET_POPULAR_QUESTIONS,
@@ -103,7 +103,7 @@ export const popularQuestions = (questionid) => dispatch => {
 
 
 export const randomPosts = () => dispatch => {
-    axios.get('http://localhost:5000/api/questions/getrandomposts')
+    axios.get('/api/questions/getrandomposts')
         .then(res => {
             dispatch({
                 type: GET_RANDOM_POSTS,
@@ -119,7 +119,7 @@ export const randomPosts = () => dispatch => {
 
 export const postQuestion = (data) => dispatch => {
     dispatch(questionsLoading())
-    axios.post('http://localhost:5000/api/questions/postquestions', data)
+    axios.post('/api/questions/postquestions', data)
         .then(res => {
             dispatch({
                 type: POST_QUESTION,
@@ -134,7 +134,7 @@ export const postQuestion = (data) => dispatch => {
 
 export const getQuestions = (page, query) => dispatch => {
     dispatch(questionsLoading())
-    axios.get('http://localhost:5000/api/questions/getquestions', { params: { page, query } })
+    axios.get('/api/questions/getquestions', { params: { page, query } })
         .then(res => {
             if (query !== '' && page === 0) {
                 dispatch({
@@ -177,7 +177,7 @@ export const getQuestions = (page, query) => dispatch => {
 
 
 export const updateViews = (data) => dispatch => {
-    axios.post('http://localhost:5000/api/questions/updateViews', data)
+    axios.post('/api/questions/updateViews', data)
         .then(res => {
             dispatch({
                 type: VIEW_SIZE_UPDATED,
