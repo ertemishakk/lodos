@@ -1,13 +1,24 @@
 import React, { Component } from 'react'
 import { CardImg } from 'reactstrap'
-// import ReactImageMagnify from 'react-image-magnify';
+import { deletePhotos } from '../actions/postActions'
+import { connect } from 'react-redux'
 
 
 class PostImages extends Component {
 
     state = {
-        hovered: false
+        hovered: false,
+        source: ''
     }
+
+    componentDidMount() {
+
+        this.setState({
+            source: this.props.src
+        })
+
+    }
+
 
     zoomIn = (e) => {
         this.setState({
@@ -21,6 +32,22 @@ class PostImages extends Component {
             hovered: false
         })
 
+    }
+
+    deletePhoto = (e) => {
+        // if (this.props.prevPath) {
+            const data = {
+                link: this.props.src,
+                postid: this.props.postid,
+                category: this.props.category,
+                userid: this.props.auth.user.id
+            }
+            this.props.deletePhotos(data)
+
+            this.setState({
+                source: null
+            })
+        // }
     }
 
 
@@ -44,28 +71,39 @@ class PostImages extends Component {
 
         return (
             <div className='d-inline'>
-                <CardImg className='p-1'
-                    onMouseLeave={this.zoomOut}
-                    onMouseEnter={this.zoomIn}
-                    style={styles}
-                    src={this.props.src} alt='forsalephotos' />
+                {(this.props.src.length !== 0 && this.props.src) && (this.state.source !== null) && (
+                    <CardImg className='p-1'
+                        onMouseLeave={this.zoomOut}
+                        onMouseEnter={this.zoomIn}
+                        style={styles}
+                        src={this.state.source} alt='forsalephotos'
+                        onClick={this.deletePhoto}
 
-                {/* <ReactImageMagnify {...{
-                    smallImage: {
-                        alt: 'Wristwatch by Ted Baker London',
-                        src: this.props.src,
-                        width: 100,
-                        height: 100
 
-                    },
-                    largeImage: {
-                        src: this.props.src,
-                        width: 500,
-                        height: 500
-                    }
-                }} /> */}
+                    />
+
+                )}
+
+
+
+
+
+
+
             </div>
         )
     }
 }
-export default PostImages
+
+
+
+const mapStateToProps = state => ({
+    post: state.post,
+    auth: state.form
+})
+
+
+
+
+
+export default connect(mapStateToProps, { deletePhotos })(PostImages)

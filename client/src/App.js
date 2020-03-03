@@ -5,21 +5,28 @@ import { Provider } from 'react-redux'
 import store from './store'
 import Navbar from '../src/components/Navbar'
 import MainPage from './components/MainPage'
-import News from './components/News'
 import Signup from './components/Signup'
-import Footer from './components/Footer'
 import Login from './components/Login'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom'
 import jwt_decode from 'jwt-decode'
 import setAuthToken from './setAuthToken'
 import { SET_CURRENT_USER } from './actions/types'
 import { logoutUser } from './actions/formActions'
 import PrivateRoute from './components/PrivateRoute'
 import Dashboard from './components/Dashboard'
-import Housing from './components/Housing'
-import ForSale from './components/ForSale'
 import CreatePost from './components/CreatePost'
 import PageLink from './components/PageLink'
+import ForsaleSub from './components/ForsaleSub';
+import QuestionLink from './components/QuestionLink'
+import VerifyAccount from './components/VerifyAccount';
+import EmailVerified from './components/EmailVerified';
+import HelpPage from './components/HelpPage'
+import AvoidScams from './components/AvoidScams'
+import NotFound from './components/NotFound'
+
+
+
+
 
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
@@ -35,46 +42,70 @@ if (localStorage.jwtToken) {
 
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
-    window.location.href = '/login'
+    // this.props.history.push('/login')
   }
 }
 
 
 class App extends React.Component {
   render() {
+
     return (
       <Provider store={store}>
         <div className="App">
-          <Navbar />
 
 
 
           <BrowserRouter>
+            <Navbar />
+
 
             <Switch>
               <Route exact path='/' component={MainPage} />
-              <Route exact path='/news' component={News} />
+              <Route exact path='/avoidscams' component={AvoidScams} />
+              <Route exact path='/help' component={HelpPage} />
+              {/* <Route exact path='/news' component={News} /> */}
               <Route exact path='/login' component={Login}>
                 {/* {localStorage.jwtToken ? <Redirect to='/dashboard' /> : <Login />} */}
               </Route>
-
-              <PrivateRoute exact path='/createpost' component={CreatePost} />
+              <Route exact path='/question/:title/:questionid' component={QuestionLink} />
+              <Route exact path='/verifyaccount' component={VerifyAccount} />
+              <Route exact path='/verifyaccount/:code' component={EmailVerified} />
               <Route exact path='/register' component={Signup} />
-              <Route exact path='/housing' component={Housing} />
-              <Route exact path='/housing/:title' component={PageLink} />
-              <Route exact path='/forsale/:title' component={PageLink} />
-              <Route exact path='/forsale' component={ForSale} />
+              <Route exact path='/services/:subcategory/:title/:forsaleid' component={PageLink} />
+              <Route exact path='/forsale/:subcategory/:title/:forsaleid' component={PageLink} />
+              <Route exact path='/housing/:subcategory/:title/:forsaleid' component={PageLink} />
+              <Route exact path='/jobs/:subcategory/:title/:forsaleid' component={PageLink} />
+              <Route exact path='/garagesale/:title/:forsaleid' component={PageLink} />
+              <Route exact path='/volunteers/:title/:forsaleid' component={PageLink} />
+              <Route exact path='/events/:title/:forsaleid' component={PageLink} />
+              <Route exact path='/classes/:title/:forsaleid' component={PageLink} />
+              <Route exact path='/lostandfound/:title/:forsaleid' component={PageLink} />
+              <Route exact path='/free/:title/:forsaleid' component={PageLink} />
+              <Route exact path='/services/:subcategory' component={ForsaleSub} />
+              <Route exact path='/forsale/:subcategory' component={ForsaleSub} />
+              <Route exact path='/housing/:subcategory' component={ForsaleSub} />
+              <Route exact path='/jobs/:subcategory' component={ForsaleSub} />
+              <Route exact path='/garagesale' component={ForsaleSub} />
+              <Route exact path='/free' component={ForsaleSub} />
+              <Route exact path='/volunteers' component={ForsaleSub} />
+              <Route exact path='/events' component={ForsaleSub} />
+              <Route exact path='/classes' component={ForsaleSub} />
+              <Route exact path='/lostandfound' component={ForsaleSub} />
+              <PrivateRoute exact path='/createpost' component={CreatePost} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <Route path="*" component={NotFound} />
             </Switch>
           </BrowserRouter>
 
 
 
-          <Footer />
         </div>
+
+
       </Provider>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

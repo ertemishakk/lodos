@@ -4,17 +4,22 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, Button
 } from 'reactstrap';
-
+import Spinner from './Spinner'
 class News extends Component {
     state = {
-        news: []
+        news: [],
+        fetching: false
     }
 
     async componentDidMount() {
-        Axios.get(`https://newsapi.org/v2/everything?q=turkish||turkey&pageSize=25&apiKey=032a0e3b07624eec81a5556013d9b392`)
+        this.setState({
+            fetching: true
+        })
+        Axios.get(`https://newsapi.org/v2/top-headlines?country=au&pageSize=25&apiKey=032a0e3b07624eec81a5556013d9b392`)
             .then(res => {
                 this.setState({
-                    news: res.data.articles
+                    news: res.data.articles,
+                    fetching: false
                 })
             })
 
@@ -26,6 +31,7 @@ class News extends Component {
 
 
                     <div>
+                        {this.state.fetching && <Spinner />}
                         {this.state.news.map((eachNews, index) => (
                             <Card key={index} style={{ width: '70%' }} className='mx-auto p-4 my-2'>
                                 <CardImg top width="100%" src={eachNews.urlToImage} alt="Card image cap" />

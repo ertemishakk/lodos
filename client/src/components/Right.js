@@ -10,7 +10,7 @@ class Right extends React.Component {
         news: [],
         usdBase: {},
         eurBase: {},
-        audBase: {},
+        // audBase: {},
         gbpBase: {},
         nzdBase: {},
         loading: false
@@ -21,10 +21,9 @@ class Right extends React.Component {
         this.setState({
             loading: true
         })
-
-        const [firstresponse, secondresponse, thirdresponse, fourthResponse, fifthResponse, sixtResponse] = await Promise.all(
+        const [firstresponse, secondresponse, thirdresponse, fifthResponse, sixtResponse] = await Promise.all(
             [
-                Axios.get(`https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=turkish||turkey&pageSize=25&apiKey=032a0e3b07624eec81a5556013d9b392`),
+                Axios.get(`https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=au&pageSize=25&apiKey=032a0e3b07624eec81a5556013d9b392`),
                 Axios.get('https://cors-anywhere.herokuapp.com/https://api.exchangeratesapi.io/latest?base=USD'),
                 Axios.get('https://cors-anywhere.herokuapp.com/https://api.exchangeratesapi.io/latest?base=EUR'),
                 Axios.get('https://cors-anywhere.herokuapp.com/https://api.exchangeratesapi.io/latest?base=AUD'),
@@ -37,16 +36,11 @@ class Right extends React.Component {
             news: firstresponse.data.articles,
             usdBase: secondresponse.data.rates,
             eurBase: thirdresponse.data.rates,
-            audBase: fourthResponse.data.rates,
             gbpBase: fifthResponse.data.rates,
             nzdBase: sixtResponse.data.rates,
             loading: false
 
         })
-
-
-        console.log(this.state)
-
 
     }
 
@@ -81,16 +75,16 @@ class Right extends React.Component {
                     </div>
 
                 </div>
-                <div className='row border justify-content-center mt-5'>
+                <div className='row border justify-content-center mt-3'>
                     <ListGroup style={{ color: '#61aaff' }}>
                         <ListGroupItem style={{ border: 0 }} >  <span className='font-weight-bold' > Currency Rates</span>  </ListGroupItem>
                         {this.state.loading ? <ListGroupItem style={{ border: 0 }} >   <Spinner />  </ListGroupItem> : ''}
 
-                        <ListGroupItem style={{ border: 0 }} className='text-left'>   <i className="fas fa-dollar-sign"></i> :  {parseFloat(this.state.usdBase.TRY).toFixed(3)}</ListGroupItem>
-                        <ListGroupItem style={{ border: 0 }} className='text-left'>   <i className="fas fa-euro-sign"></i> :  {parseFloat(this.state.eurBase.TRY).toFixed(3)}</ListGroupItem>
-                        <ListGroupItem style={{ border: 0 }} className='text-left'>  <span className='font-weight-bold'>AUD</span> :  {parseFloat(this.state.audBase.TRY).toFixed(3)}</ListGroupItem>
-                        <ListGroupItem style={{ border: 0 }} className='text-left'>  <span className='font-weight-bold'>NZD</span> :  {parseFloat(this.state.nzdBase.TRY).toFixed(3)}</ListGroupItem>
-                        <ListGroupItem style={{ border: 0 }} className='text-left'>  <i className="fas fa-pound-sign"></i> :  {parseFloat(this.state.gbpBase.TRY).toFixed(3)}</ListGroupItem>
+                        <ListGroupItem style={{ border: 0 }} className='text-left'>   <i className="fas fa-dollar-sign"></i> :  {parseFloat(this.state.usdBase.AUD).toFixed(3)}</ListGroupItem>
+                        <ListGroupItem style={{ border: 0 }} className='text-left'>   <i className="fas fa-euro-sign"></i> :  {parseFloat(this.state.eurBase.AUD).toFixed(3)}</ListGroupItem>
+                        {/* <ListGroupItem style={{ border: 0 }} className='text-left'>  <span className='font-weight-bold'>AUD</span> :  {parseFloat(this.state.audBase.AUD).toFixed(3)}</ListGroupItem> */}
+                        <ListGroupItem style={{ border: 0 }} className='text-left'>  <span className='font-weight-bold'>NZD</span> :  {parseFloat(this.state.nzdBase.AUD).toFixed(3)}</ListGroupItem>
+                        <ListGroupItem style={{ border: 0 }} className='text-left'>  <i className="fas fa-pound-sign"></i> :  {parseFloat(this.state.gbpBase.AUD).toFixed(3)}</ListGroupItem>
                     </ListGroup>
 
 
@@ -101,5 +95,7 @@ class Right extends React.Component {
         )
     }
 }
+
+
 
 export default Right

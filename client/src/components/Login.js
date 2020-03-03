@@ -1,5 +1,5 @@
 import React from 'react'
-import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import { InputGroup, InputGroupAddon, InputGroupText, Input, Alert } from 'reactstrap';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import classnames from 'classnames'
@@ -34,8 +34,9 @@ class Login extends React.Component {
     componentDidUpdate(prevProps) {
 
         if (this.props.auth.isAuthenticated) {
-            // this.props.history.push('/dashboard')
-            window.location.href = '/dashboard'
+
+            this.props.history.push('/dashboard')
+
         }
 
         if (this.props.errors !== prevProps.errors) {
@@ -46,7 +47,7 @@ class Login extends React.Component {
     }
     componentDidMount() {
         if (localStorage.jwtToken) {
-            window.location.href = '/dashboard'
+            this.props.history.push('/dashboard')
         }
     }
 
@@ -60,6 +61,13 @@ class Login extends React.Component {
                 <div className='row'>
                     <div className='col-md-8 m-auto'>
                         <h1 className='display-4 text-center mb-5'>Log In</h1>
+
+                        {errors.verify && (
+                            <Alert color='danger'>
+                                Please verify your email. Click <Link to='#'>here</Link> to receive another verification link.
+                            </Alert>
+                        )}
+
                         <form onSubmit={this.onSubmit} >
 
                             <InputGroup className='my-2'>
@@ -74,7 +82,7 @@ class Login extends React.Component {
                                 <InputGroupAddon addonType="prepend">
                                     <InputGroupText>@</InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="password" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.password })} value={this.state.password} name='password' />
+                                <Input type='password' placeholder="password" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.password })} value={this.state.password} name='password' />
                                 <div className='invalid-feedback'>{errors.password}</div>
                             </InputGroup>
 

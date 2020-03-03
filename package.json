@@ -7,12 +7,15 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "ISHAK ERTEM",
   "license": "MIT",
   "dependencies": {
+    "@sendgrid/mail": "^6.5.2",
+    "amazon-s3-uri": "0.0.3",
     "aws-sdk": "^2.597.0",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
@@ -32,10 +35,12 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
+    "react-reveal": "^1.2.2",
     "react-router-dom": "^5.1.2",
     "reactstrap": "^8.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "socket.io": "^2.3.0",
     "thunk": "0.0.1",
     "validator": "^12.1.0"
   },

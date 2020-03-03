@@ -16,6 +16,9 @@ const AllPostsSchema = new Schema({
         category: {
             type: String
         },
+        subcategory: {
+            type: String
+        },
         date: {
             type: Date,
             default: Date.now

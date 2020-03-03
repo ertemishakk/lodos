@@ -1,6 +1,6 @@
-module.exports = {
-    mongoURI: 'mongodb+srv://ertemishakk:ertemishakk@cluster0-mzlfr.mongodb.net/test?retryWrites=true&w=majority',
-    secret: "secret",
-    secretAccessKey: 'BVyK/C1aTaNDM6jXgOaBF4riI1TBuI6EoBUwQg1N',
-    accessKeyId: 'AKIAIZUYLTFJ6TWAQDUA',
+if (process.env.NODE_ENV === 'production') {
+    module.exports = require('./key_prod')
+}
+else {
+    module.exports = require('./keys_dev')
 }

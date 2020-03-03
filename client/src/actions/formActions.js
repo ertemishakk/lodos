@@ -1,11 +1,20 @@
 import axios from 'axios';
-import { GET_ERRORS, SET_CURRENT_USER } from './types'
+import { GET_ERRORS, SET_CURRENT_USER, VERIFY_USER } from './types'
 import jwt_decode from 'jwt-decode'
 import setAuthToken from '../setAuthToken'
 
 export const registerUser = (userData, history) => dispatch => {
     axios.post('http://localhost:5000/api/users/register', userData)
-        .then(res => history.push('/login'))
+        .then(res => {
+            if (res.data.success) {
+                history.push({
+                    pathname: '/verifyaccount',
+                    state: {
+                        name: userData.name
+                    }
+                })
+            }
+        })
         .catch(err => dispatch({
             type: GET_ERRORS,
             payload: err.response.data
@@ -13,6 +22,24 @@ export const registerUser = (userData, history) => dispatch => {
         }))
 
 }
+
+
+export const verifyUser = (code) => dispatch => {
+    axios.post(`http://localhost:5000/api/users/verifyaccount/${code}`)
+        .then(res => {
+            dispatch({
+                type: VERIFY_USER,
+                payload: res.data
+            })
+        })
+        .catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+
+        }))
+
+}
+
 
 export const loginUser = (userData) => dispatch => {
     axios.post('http://localhost:5000/api/users/login', userData)
@@ -28,8 +55,6 @@ export const loginUser = (userData) => dispatch => {
                 type: SET_CURRENT_USER,
                 payload: decoded
             })
-
-
         })
         .catch(err => dispatch({
             type: GET_ERRORS,
@@ -47,5 +72,5 @@ export const logoutUser = () => dispatch => {
         type: SET_CURRENT_USER,
         payload: {}
     });
-    window.location.href = '/login'
+
 }

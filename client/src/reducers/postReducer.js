@@ -1,75 +1,142 @@
 import {
-    HOUSING_POSTS, FORSALE_POSTS,
-    POST_ERROR, GET_HOUSING_POSTS, GET_FORSALE_POSTS
-    , GET_PROFILE_POSTS, GET_FORSALE_POSTS_BY_PRICE_ASC
-    , GET_FORSALE_POSTS_BY_PRICE_DESC, GET_SINGLE_FORSALE_POST,LOADING
+    YELLOWPAGES_POST,
+    POST_ERROR,
+    GET_YELLOWPAGES_POST,
+    GET_PROFILE_POSTS,
+    STOP_YELLOWPAGES_FETCHING_ONMOUNT,
+    LOADING,
+    UPDATE_POST,
+    GET_SPECIFIC_YELLOWPAGE,
+    YELLOWPAGES_FETCHING_FINISHED,
+    GET_STATES,
+    GET_TOWNS,
+    PHOTO_DELETED,
+    STOP_LOADING,
+    CLEAR_YELLOWPAGES,
+    CLEAR_POST,
+    UPDATE_YELLOWPAGES_POSITION
 } from '../actions/types'
-// import isEmpty from '../is-empty'
 
 const initialState = {
-    housingposts: [],
-    forsaleposts: [],
-    singleforsalepost: {},
+    yellowpages: [],
     profileposts: {},
     post: {},
     postError: {},
-    loading:false
-    
+    loading: false,
+    states: [],
+    stopFetchingOnMount: false,
+    yellowpagefetchingfinished: false,
+    updateSuccess: false,
+    page: 0
 
 }
 export default function (state = initialState, action) {
+
     switch (action.type) {
+        case UPDATE_YELLOWPAGES_POSITION:
+            return {
+                ...state,
+                page: action.payload
+
+            }
+
+        case CLEAR_POST:
+            return {
+                ...state,
+                post: {}
+
+            }
+
+        case YELLOWPAGES_FETCHING_FINISHED:
+            return {
+                ...state,
+                yellowpagefetchingfinished: true,
+
+            }
+
+        case STOP_YELLOWPAGES_FETCHING_ONMOUNT:
+            return {
+                ...state,
+                stopFetchingOnMount: true,
+
+            }
+
+        case UPDATE_POST:
+            return {
+                ...state,
+                // post: action.payload,
+                updateSuccess: true
+            }
+        case PHOTO_DELETED:
+            return {
+                ...state
+
+            }
+        case GET_TOWNS:
+            return {
+                ...state,
+                [state.states[action.stateid]]: action.cities
+            }
+        case GET_STATES:
+            return {
+                ...state,
+                states: action.payload
+            }
         case LOADING:
             return {
                 ...state,
                 loading: true,
-               
+
             }
-        case HOUSING_POSTS:
-            return {
-               ...state,
-                post: action.payload,
-               
-            }
-        case FORSALE_POSTS:
+        case STOP_LOADING:
             return {
                 ...state,
-                loading:false,
+                loading: false,
+
+            }
+
+        case YELLOWPAGES_POST:
+            return {
+                ...state,
+                loading: false,
                 post: action.payload,
-               
+
             }
         case POST_ERROR:
             return {
-                loading:false,
+                ...state,
+                loading: false,
                 postError: action.payload
             }
-        case GET_HOUSING_POSTS:
-            return {
-                housingposts: action.payload
-            }
-        case GET_FORSALE_POSTS:
-            return {
-                loading:false,
-                forsaleposts: action.payload
-            }
-        case GET_FORSALE_POSTS_BY_PRICE_ASC:
-            return {
-                forsaleposts: action.payload
-            }
-        case GET_FORSALE_POSTS_BY_PRICE_DESC:
-            return {
-                forsaleposts: action.payload
-            }
-        case GET_PROFILE_POSTS:
-            return {
-                profileposts: action.payload
-            }
-        case GET_SINGLE_FORSALE_POST:
+        case GET_YELLOWPAGES_POST:
             return {
                 ...state,
-                singleforsalepost: action.payload
+                stopFetchingOnMount: false,
+                loading: false,
+                yellowpages: state.yellowpages.concat(action.payload)
             }
-       
+
+        case CLEAR_YELLOWPAGES:
+            return {
+                ...state,
+                yellowpages: []
+            }
+
+        case GET_PROFILE_POSTS:
+            return {
+                ...state,
+                profileposts: action.payload,
+                loading: false
+            }
+
+        case GET_SPECIFIC_YELLOWPAGE:
+            return {
+                ...state,
+                loading: false,
+                post: action.payload
+            }
+
+
         default: return state;
 
     }

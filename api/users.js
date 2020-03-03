@@ -7,7 +7,10 @@ const validateLoginInput = require('../validateForms/login')
 const jwt = require('jsonwebtoken')
 const keys = require('../config/keys')
 const AllPosts = require('../models/AllPosts')
-
+const Verify = require('../models/Verify')
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId
+const sgMail = require('@sendgrid/mail');
 
 
 router.post('/register', (req, res) => {
@@ -28,7 +31,6 @@ router.post('/register', (req, res) => {
                     name: req.body.name,
                     email: req.body.email,
                     password: req.body.password,
-                    city: req.body.city
                 })
 
                 bcrypt.genSalt(10, (err, salt) => {
@@ -36,19 +38,86 @@ router.post('/register', (req, res) => {
                         if (err) throw err;
                         newUser.password = hash;
                         newUser.save()
-                            .then(user => res.json(user))
+                            .then(user => {
+
+                                const allposts = new AllPosts({
+                                    user: user._id
+                                })
+
+                                allposts.save()
+                                    .then(() => {
+
+
+                                        var code = ''
+
+                                        for (let i = 0; i < 16; i++) {
+                                            var random = Math.floor(Math.random() * 10)
+                                            code = code + random
+
+                                        }
+
+
+                                        const verify = new Verify({
+                                            user: user._id,
+                                            verificationCode: code
+                                        })
+
+                                        verify.save()
+                                            .then((newVerify) => {
+
+                                                sgMail.setApiKey(keys.sendGridAPI)
+
+                                                const link = `http://localhost:3000/verifyaccount/${newVerify.verificationCode}`
+
+                                                const msg = {
+                                                    to: user.email,
+                                                    from: 'ertemishakk@gmail.com',
+                                                    subject: `Welcome to Lodos. Please verify your email.`,
+                                                    // text: "You're almost there.Click the link below to confirm your email and finish creating your Lodos account. " + link
+                                                    templateId: 'd-4936e16b55f9459fb7275af684c63cd5',
+                                                    dynamic_template_data: {
+                                                        name: user.name,
+                                                        verifyLink: link
+                                                    }
+                                                }
+
+                                                sgMail.send(msg);
+                                                res.json({ success: 'Registration successfull' })
+
+                                            })
+                                            .catch(err => console.log(err))
+                                    }).catch(err => console.log(err))
+
+
+
+                            })
                             .catch(err => console.log(err))
                     })
                 })
-                const allposts = new AllPosts({
-                    user: newUser._id
-                })
 
-                allposts.save()
+
 
             }
         })
 
+
+})
+
+router.post('/verifyaccount/:verificationCode', (req, res) => {
+
+    Verify.findOne({ verificationCode: req.params.verificationCode })
+        .then(verify => {
+            if (verify) {
+                User.updateOne({ _id: ObjectId(verify.user) }, { isActive: true })
+                    .then(() => {
+                        res.json(`Your email has been verified`)
+                    }).then(
+                        verify.remove()
+                    )
+                    .catch(err => console.log(err))
+            }
+        })
+        .catch(err => console.log(err))
 
 })
 
@@ -70,6 +139,10 @@ router.post('/login', (req, res) => {
                 return res.status(400).json(errors)
             }
 
+            if (!user.isActive) {
+                errors.verify = 'Please verify your account'
+                return res.status(400).json(errors)
+            }
 
 
             bcrypt.compare(password, user.password)
@@ -78,9 +151,9 @@ router.post('/login', (req, res) => {
                         const payload = {
                             id: user.id,
                             name: user.name,
-                            city: user.city,
                             email: user.email,
-                            date: user.date
+                            date: user.date,
+                            isAdmin: user.isAdmin
                         }
 
                         jwt.sign(payload, keys.secret, { expiresIn: 3600 },
@@ -98,10 +171,6 @@ router.post('/login', (req, res) => {
                         return res.status(400).json(errors)
                     }
                 })
-
-
-            // Allposts.updateOne({}, { $push: { userid: user._id } }, (err) =>
-            //     res.json(post))
 
 
 

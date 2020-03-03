@@ -11,19 +11,7 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
-    location: {
-        type: String,
-        required: true
-    },
     description: {
-        type: String,
-        required: true
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    userid: {
         type: String,
         required: true
     },
@@ -32,14 +20,10 @@ const PostSchema = new Schema({
         required: true
     },
     phonenumber: {
-        type: String,
+        type: Number,
         required: true
     },
-    language: {
-        type: String,
-        required: true
-    },
-    postcode: {
+    subcategory: {
         type: String,
         required: true
     }
@@ -52,6 +36,28 @@ const PostSchema = new Schema({
         type: Number,
         required: true
     },
+    state: {
+        type: String,
+        required: true
+    },
+    town: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    often: {
+        type: String,
+        required: true
+    },
+    links: [{ type: String }],
+    name: {
+        type: String,
+        required: true
+    },
+
     date: {
         type: Date,
         default: Date.now

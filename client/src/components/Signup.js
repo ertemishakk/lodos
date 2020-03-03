@@ -15,7 +15,7 @@ class Signup extends React.Component {
         email: '',
         password: '',
         password2: '',
-        city: '',
+
         errors: {}
     }
 
@@ -33,28 +33,19 @@ class Signup extends React.Component {
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2,
-            city: this.state.city
+
         }
 
         this.props.registerUser(newUser, this.props.history)
 
-
-
-
     }
 
-    componentDidUpdate(prevProps) {
-
-        if (this.props.auth.isAuthenticated) {
-            this.props.history.push('/dashboard')
-        }
-
+    componentDidUpdate(prevProps, prevState) {
         if (this.props.errors !== prevProps.errors) {
             this.setState({
                 errors: this.props.errors
             })
         }
-        //  console.log(this.state)
     }
 
 
@@ -88,20 +79,11 @@ class Signup extends React.Component {
                                     <div className='invalid-feedback'>{errors.email}</div>
                                 </InputGroup>
 
-
                                 <InputGroup className='my-2'>
                                     <InputGroupAddon addonType="prepend">
                                         <InputGroupText>@</InputGroupText>
                                     </InputGroupAddon>
-                                    <Input placeholder="city" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.city })} value={this.state.city} name='city' />
-                                    <div className='invalid-feedback'>{errors.city}</div>
-                                </InputGroup>
-
-                                <InputGroup className='my-2'>
-                                    <InputGroupAddon addonType="prepend">
-                                        <InputGroupText>@</InputGroupText>
-                                    </InputGroupAddon>
-                                    <Input placeholder="password" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.password })} value={this.state.password} name='password' />
+                                    <Input  type='password' placeholder="password" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.password })} value={this.state.password} name='password' />
                                     <div className='invalid-feedback'>{errors.password}</div>
                                 </InputGroup>
 
@@ -109,7 +91,7 @@ class Signup extends React.Component {
                                     <InputGroupAddon addonType="prepend">
                                         <InputGroupText>@</InputGroupText>
                                     </InputGroupAddon>
-                                    <Input placeholder="confirm password" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.password2 })} value={this.state.password2} name='password2' />
+                                    <Input type='password' placeholder="confirm password" onChange={this.onChange} className={classnames('', { 'is-invalid': errors.password2 })} value={this.state.password2} name='password2' />
                                     <div className='invalid-feedback'>{errors.password2}</div>
                                 </InputGroup>
                                 <small className='float-left pb-2'>Already a member? <Link to='/login'>Log in</Link></small>

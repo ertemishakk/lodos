@@ -16,15 +16,18 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    city: {
-        type: String,
-        required: true,
-        trim: true
-    },
     date: {
         type: Date,
         default: Date.now
     },
+    isActive: {
+        type: Boolean,
+        default: false
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
 
 
 })

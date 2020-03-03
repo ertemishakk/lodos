@@ -24,20 +24,12 @@ const PostSchema = new Schema({
         type: Number,
         required: true
     },
-    // userid: {
-    //     type: String,
-    //     required: true
-    // },
     email: {
         type: String,
         required: true
     },
     phonenumber: {
         type: Number,
-        required: true
-    },
-    language: {
-        type: String,
         required: true
     },
     make: {
