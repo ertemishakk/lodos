@@ -23,7 +23,7 @@ QuickLinks component on the ride has been placed as a reference and links do not
 
 #Features
 
-1.Sign in, Sign up with email verification.
-2.Posting Questions, with ability to upvote, downvote or answer.
-3.Posting ads on relevant categories.
-4.Updating-deleting user created entries.
+1.Sign in, Sign up with email verification.<br/>
+2.Posting Questions, with ability to upvote, downvote or answer.<br/>
+3.Posting ads on relevant categories.<br/>
+4.Updating-deleting user created entries.<br/>
