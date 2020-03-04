@@ -27,3 +27,4 @@ QuickLinks component on the ride has been placed as a reference and links do not
 2.Posting Questions, with ability to upvote, downvote or answer.<br/>
 3.Posting ads on relevant categories.<br/>
 4.Updating-deleting user created entries.<br/>
+5.Infinite scroll added to all components 
