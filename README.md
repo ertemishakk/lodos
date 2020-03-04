@@ -20,3 +20,10 @@ It will remove the specific question when a single question is being viewed.
 QuickLinks component on the ride has been placed as a reference and links do not work as of now. To be worked on in the future.
 
 ![](client/src/images/quicklinks.png)
+
+#Features
+
+1.Sign in, Sign up with email verification.
+2.Posting Questions, with ability to upvote, downvote or answer.
+3.Posting ads on relevant categories.
+4.Updating-deleting user created entries.
