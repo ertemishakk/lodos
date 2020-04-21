@@ -15,7 +15,7 @@ class News extends Component {
         this.setState({
             fetching: true
         })
-        Axios.get(`https://newsapi.org/v2/top-headlines?country=au&pageSize=25&apiKey=032a0e3b07624eec81a5556013d9b392`)
+        Axios.get(`https://newsapi.org/v2/top-headlines?country=au&pageSize=25&apiKey=[YOUR_API_KEY]`)
             .then(res => {
                 this.setState({
                     news: res.data.articles,
