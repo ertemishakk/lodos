@@ -42,7 +42,7 @@
     "redux-thunk": "^2.3.0",
     "socket.io": "^2.3.0",
     "thunk": "0.0.1",
-    "validator": "^12.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
